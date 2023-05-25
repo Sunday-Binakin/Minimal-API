@@ -6,9 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-
-
 //sql connection
 /**
 var SqlConnectionBuilder = new SqlConnectionStringBuilder();
@@ -19,8 +16,8 @@ SqlConnectionBuilder.Password = builder.Configuration["Password"];
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(SqlConnectionBuilder.ConnectionString));
 **/
 var connectionString = builder.Configuration.GetConnectionString("SQLDbConnection");
-        builder.Services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddScoped<ICommandRepo, CommandRepo>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -31,6 +28,4 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-
 app.Run();
-
