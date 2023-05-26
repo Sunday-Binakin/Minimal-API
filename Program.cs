@@ -18,6 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(SqlC
 var connectionString = builder.Configuration.GetConnectionString("SQLDbConnection");
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddScoped<ICommandRepo, CommandRepo>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
